@@ -99,6 +99,7 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
         borrarLista = new javax.swing.JButton();
         mostrarTodasB = new javax.swing.JButton();
         editarB = new javax.swing.JButton();
+        numPelis = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         aniadirTF = new javax.swing.JTextField();
         aniadirB = new javax.swing.JButton();
@@ -151,6 +152,7 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        pelicula1TA.setEditable(false);
         pelicula1TA.setColumns(20);
         pelicula1TA.setLineWrap(true);
         pelicula1TA.setRows(5);
@@ -160,6 +162,7 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        pelicula2TA.setEditable(false);
         pelicula2TA.setColumns(20);
         pelicula2TA.setLineWrap(true);
         pelicula2TA.setRows(5);
@@ -271,6 +274,11 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
             }
         });
 
+        numPelis.setEditable(false);
+        numPelis.setBackground(new java.awt.Color(255, 255, 255));
+        numPelis.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        numPelis.setToolTipText("");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -279,7 +287,7 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -291,7 +299,7 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(49, 49, 49)
                         .addComponent(buscarB)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(mostrarTodasB)
                         .addGap(43, 43, 43))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -299,7 +307,9 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
                         .addComponent(borrarLista)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(editarB)
-                        .addGap(61, 61, 61))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(numPelis, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,7 +327,8 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(borrarLista)
-                    .addComponent(editarB))
+                    .addComponent(editarB)
+                    .addComponent(numPelis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
 
@@ -369,7 +380,7 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jLabel5)
                     .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -497,6 +508,11 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se han encontrado resultados", "Atención", JOptionPane.INFORMATION_MESSAGE);
             borrarLista.setEnabled(false);
             editarB.setEnabled(false);
+            numPelis.setText("");
+        }
+        //Obtener el números de pelis que concuerda con la búsqueda
+        else{
+            numPelis.setText(posiciones.size()+"");
         }
         listaPeliculas.setModel(modelo);
     }
@@ -586,6 +602,9 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
         borrarLista.setEnabled(false);
         editarB.setEnabled(false);
         buscar = "";
+        
+        //Obtener número de películas al mostrar todas
+        numPelis.setText(pelis.size()+"");
     }//GEN-LAST:event_mostrarTodasBActionPerformed
 
     private void editarBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBActionPerformed
@@ -686,6 +705,7 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JList<String> listaPeliculas;
     private javax.swing.JButton mostrarTodasB;
+    private javax.swing.JTextField numPelis;
     private javax.swing.JButton pelicula1B;
     private javax.swing.JTextArea pelicula1TA;
     private javax.swing.JButton pelicula2B;
