@@ -552,6 +552,7 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
         String texto = aniadirTF.getText().replace(" ", "");
         String anio;
         int posAniadir;
+        boolean duplicado;
         String expRegAnio = "^(\\+\\*|\\*\\+|\\+|\\*)?[a-zA-Z0-9]+[^\\+\\*]*[0-9]{4}$";
 
         if (!texto.equals("")) {
@@ -559,15 +560,24 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
             //if (anioCB.isSelected()) {
             if (Pattern.matches(expRegAnio, aniadirTF.getText().toString())) {
                 //Se comprueba si se introduce un patrón correcto y se actualiza el año
-                anio = aniadirTF.getText().substring(aniadirTF.getText().length() - 4, aniadirTF.getText().length());
-                posAniadir = buscarAnio(anio)+1;
+                
+                //Comprobar duplicados
+                duplicado = buscarDuplicado(aniadirTF.getText().toString());
+                
+                if(duplicado==false){
+                    anio = aniadirTF.getText().substring(aniadirTF.getText().length() - 4, aniadirTF.getText().length());
+                    posAniadir = buscarAnio(anio)+1;
+                
 
                 //if (posAniadir == -1) {
                     JOptionPane.showMessageDialog(null, "La película se ha añadido correctamente", "Correcto", JOptionPane.INFORMATION_MESSAGE);
                 //} else {
                     pelis.add(posAniadir, aniadirTF.getText());
                 //}
-
+                } else{
+                    JOptionPane.showMessageDialog(null, "La película ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(null, "La cadena introducida no cumple el patrón", "Error", JOptionPane.ERROR_MESSAGE);
                 //pelis.add(aniadirTF.getText());
@@ -679,6 +689,25 @@ public class PeliculasAleatorias extends javax.swing.JFrame {
             anio = Integer.toString(Integer.parseInt(anio) - 1);
         }
         return posAniadir;
+    }
+    
+    private boolean buscarDuplicado(String peliAniadir) {
+        //mayúsculas, minúsculas y acentos
+        String normalizado = Normalizer.normalize(peliAniadir, Normalizer.Form.NFD);
+        String textofinal = normalizado.replaceAll("[^\\p{ASCII}]", "");
+        textofinal = textofinal.toLowerCase();
+        
+        for(int i = 0; i < pelis.size(); i++){
+            String normalizado2 = Normalizer.normalize(pelis.get(i), Normalizer.Form.NFD);
+            String textofinal2 = normalizado2.replaceAll("[^\\p{ASCII}]", "");
+            textofinal2 = textofinal2.toLowerCase();
+            
+            if(textofinal2.indexOf(textofinal)>-1){
+                System.out.println("Duplicados: "+textofinal2.indexOf(textofinal));
+                return true;
+            }
+        }
+        return false;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
